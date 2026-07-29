@@ -18,9 +18,17 @@
     font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
   .wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 96px; }
-  nav.top { max-width: 760px; margin: 0 auto; padding: 20px; font-size: 14px; }
+  nav.top {
+    max-width: 760px; margin: 0 auto; padding: 20px; font-size: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
   nav.top a { color: var(--muted); text-decoration: none; }
   nav.top a:hover { color: var(--accent); }
+  #lang-select {
+    padding: 6px 10px; font-size: 13px; border-radius: 6px;
+    color: var(--muted); background: color-mix(in srgb, var(--fg) 4%, transparent);
+    border: 1px solid var(--border);
+  }
   h1 { font-size: 1.9rem; margin: 0 0 4px; }
   p { color: var(--fg); }
   a { color: var(--accent); }
@@ -28,14 +36,18 @@
 </style>
 </head>
 <body>
-<nav class="top"><a href="./">← Romy's Garage — Legal</a></nav>
+<nav class="top">
+  <a href="./">← Romy's Garage — Legal</a>
+  <select id="lang-select" aria-label="Language"></select>
+</nav>
 <div class="wrap">
 
-<h1>Thanks!</h1>
-<p class="updated">Your message just landed in my inbox — I'll get back to you personally, usually within a few days.</p>
-<p>— Alejandro</p>
-<p><a href="support.html">← Back to Support</a></p>
+<h1 data-i18n="thanksH1">Thanks!</h1>
+<p class="updated" data-i18n="thanksBody">Your message just landed in my inbox — I'll get back to you personally, usually within a few days.</p>
+<p data-i18n="thanksSign">— Alejandro</p>
+<p><a href="support.html" data-i18n="thanksBack">← Back to Support</a></p>
 
 </div>
+<script src="i18n.js"></script>
 </body>
 </html>
