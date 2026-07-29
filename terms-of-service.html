@@ -110,8 +110,21 @@
 <h2>Contact Us</h2>
 <p>If You have any questions about these Terms and Conditions, You can contact Us:</p>
 <ul>
-<li>By email: alef113@icloud.com</li>
+<li>Via the <a href="support.html">Support form</a></li>
+<li>By email: <span id="contact-email">(enable JavaScript to reveal, or use the Support form above)</span></li>
 </ul>
+<script>
+(function () {
+  var el = document.getElementById("contact-email");
+  if (!el) return;
+  var addr = "alef113" + "@" + "icloud.com";
+  var a = document.createElement("a");
+  a.href = "mailto:" + addr;
+  a.textContent = addr;
+  el.textContent = "";
+  el.appendChild(a);
+})();
+</script>
 </div>
 </body>
 </html>
