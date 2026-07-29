@@ -420,6 +420,10 @@ const SUPPORT_LANGS = [
 
 function supportDetectInitialLanguage() {
   try {
+    const fromApp = new URLSearchParams(location.search).get("lang");
+    if (fromApp && SUPPORT_I18N[fromApp]) return fromApp;
+  } catch (e) {}
+  try {
     const saved = localStorage.getItem("supportLang");
     if (saved && SUPPORT_I18N[saved]) return saved;
   } catch (e) {}
