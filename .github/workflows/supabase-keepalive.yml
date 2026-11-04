@@ -1,0 +1,30 @@
+# Hält das Supabase-Gratisprojekt des Carsharings (Romy's Garage) wach: Free-Projekte werden nach
+# 7 Tagen ohne Anfragen pausiert. Ein täglicher Aufruf der öffentlichen RPC `ping` genügt.
+# Der Publishable Key ist öffentlich (er steckt auch in der App); Daten schützt die Datenbank per RLS.
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping car sharing database
+        env:
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_ODVcRvJi-y-JgW8IihyTKQ_E3Gpiv2S
+        run: |
+          curl --fail --silent --show-error -X POST \
+            "https://haticpvobgbcdwldllxv.supabase.co/rest/v1/rpc/ping" \
+            -H "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
+            -H "Content-Type: application/json" -d '{}'
+      # GitHub deaktiviert geplante Workflows in Repos ohne Aktivität nach 60 Tagen.
+      - name: Keep this schedule enabled
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/supabase-keepalive.yml/enable"

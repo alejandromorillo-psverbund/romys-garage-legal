@@ -43,8 +43,8 @@
 <body>
 <nav class="top"><a href="./">← Romy's Garage — Legal</a></nav>
 <div class="wrap">
-<h1>Privacy Policy</h1><p class="updated">Last updated: July 15, 2026</p>
-<p>Romy's Garage is built to work almost entirely on Your device. This Privacy Policy explains the little information that is processed in connection with the Service, who processes it, and why, and tells You about Your privacy rights.</p>
+<h1>Privacy Policy</h1><p class="updated">Last updated: November 4, 2026</p>
+<p>Romy's Garage has two parts. The <strong>restoration</strong> part works entirely on Your device. The optional <strong>car sharing</strong> part (introduced in version 1.1) lets several people share a car, and therefore stores the car sharing data You and the other members enter on Our server in the European Union. This Privacy Policy explains what is processed for each part, who processes it, and why, and tells You about Your privacy rights.</p>
 <h2>Interpretation and Definitions</h2>
 <h3>Interpretation</h3>
 <p>The words whose initial letters are capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
@@ -53,6 +53,8 @@
 <ul>
 <li><strong>Account</strong> means the sign-in state created for You to access the Service via Sign in with Apple (see "Account and Sign-In Data" below).</li>
 <li><strong>Application</strong> refers to Romy's Garage, the software program provided by the Company.</li>
+<li><strong>Car Sharing Account</strong> means the account created on Our server when You start using the car sharing part with Sign in with Apple. It is separate from the restoration part, which needs no server account.</li>
+<li><strong>Car Sharing Data</strong> refers to the information entered in the car sharing part by You or other members of a shared car — the car (name, make, model, year, optional licence plate, photo, odometer, currency), memberships and invite codes, trips (odometer readings, times, optional notes), costs (amount, category, payer, date, optional notes and fuel quantity), reservations, settlements, and — only if You choose to save it — the parking location at the end of a trip.</li>
 <li><strong>Business</strong>, for the purpose of the CCPA/CPRA, refers to the Company as the entity that determines the purposes and means of processing Consumers' personal information and does business in the State of California.</li>
 <li><strong>CCPA/CPRA</strong> refers to the California Consumer Privacy Act as amended by the California Privacy Rights Act of 2020.</li>
 <li><strong>Company</strong> ("the Company", "We", "Us", or "Our") refers to Alejandro Morillo Diaz, Am Markt 14, Burg auf Fehmarn, Germany.</li>
@@ -64,7 +66,7 @@
 <li><strong>Personal Data</strong> (or "Personal Information") is any information that relates to an identified or identifiable individual, as further defined under the GDPR and the CCPA/CPRA respectively. We use "Personal Data" and "Personal Information" interchangeably.</li>
 <li><strong>Project Data</strong> refers to the vehicle project information You create within the Application — project names, categories, parts, tasks, milestones, budget entries, journal entries, before/after photo pairs, and photos You take or import. Project Data is <strong>not</strong> transmitted to the Company; see "Project Data Stays on Your Device" below.</li>
 <li><strong>Service</strong> refers to the Application.</li>
-<li><strong>Service Provider</strong> means any natural or legal person who processes data on behalf of the Company (a Data Processor under the GDPR). For Romy's Garage, this currently means only <strong>RevenueCat, Inc.</strong> and <strong>Apple Inc.</strong> (see "Third-Party Service Providers" below).</li>
+<li><strong>Service Provider</strong> means any natural or legal person who processes data on behalf of the Company (a Data Processor under the GDPR). For Romy's Garage, this means <strong>RevenueCat, Inc.</strong>, <strong>Apple Inc.</strong> and, for the car sharing part only, <strong>Supabase, Inc.</strong> (see "Third-Party Service Providers" below).</li>
 <li><strong>You</strong> means the individual accessing or using the Service. Under GDPR, You may be referred to as the Data Subject.</li>
 </ul>
 <h2>Collecting and Using Your Personal Data</h2>
@@ -74,14 +76,20 @@
 <p><strong>Email address (optional, not stored).</strong> Apple may share Your email address (or a private Apple relay address) with the Application at the moment You sign in. Romy's Garage does not persist this email address and does not transmit it anywhere.</p>
 <p><strong>Subscription and purchase status.</strong> To unlock Pro features, the Application checks Your subscription status with RevenueCat, which in turn relies on Apple's App Store to validate Your purchase. Neither the Company nor RevenueCat ever receives Your payment card details — those are handled entirely by Apple.</p>
 <p><strong>Project Data.</strong> See "Project Data Stays on Your Device" below — this data is never sent to Us.</p>
+<p><strong>Car sharing (only if You use it).</strong> When You start car sharing, Sign in with Apple creates Your Car Sharing Account on Our server. We store Your Apple sign-in identifier, the email address Apple provides (which may be a private relay address), and the display name You choose. We then store the Car Sharing Data You enter, together with the time each entry was made. Members of a shared car see each other's display names and the Car Sharing Data of that car, because the whole point is to share trips, costs, reservations and the settlement. If someone adds a person without the app (for example a relative), the name entered for that person is stored as part of the car's data.</p>
+<p><strong>Parking location (optional).</strong> When You end a trip, You can save where the car is parked. Only then does the Application ask for Your location (precise, "while using the app"), once, and stores it with the car so the other members can find it. Parking locations are deleted automatically after 60 days. You can turn this off for every trip.</p>
+<p><strong>Notifications.</strong> If You allow notifications, Your Device's push token, language and time zone are stored so We can tell You, for example, that another member reserved the car or closed a settlement. Messages are delivered through Apple Push Notification service.</p>
+<p><strong>Car sharing subscription.</strong> To check whether a car is paid for, Our server asks RevenueCat for the car owner's subscription status (number of car slots and expiry date) and stores that status. Purchases of extra seats are recorded with their transaction identifier so each purchase is credited once.</p>
+<p><strong>Receipt scanning.</strong> If You scan a fuel receipt, the text is recognised on Your Device; the photo is never uploaded. Car photos You add to a shared car are uploaded so the other members can see them.</p>
 <p><strong>Support correspondence.</strong> If You email Us for support, We process the content of Your message and Your email address to respond to You.</p>
-<p><strong>We do not collect:</strong> location data, contacts, health data, browsing or in-app usage analytics, advertising identifiers, or any data via cookies or web-tracking technologies. Romy's Garage is a native iOS application with no embedded analytics, advertising, or tracking SDKs.</p>
+<p><strong>We do not collect:</strong> location data (other than the optional parking location described above), contacts, health data, browsing or in-app usage analytics, advertising identifiers, or any data via cookies or web-tracking technologies. Romy's Garage is a native iOS application with no embedded analytics, advertising, or tracking SDKs.</p>
 <p><strong>Device permissions.</strong> The Application may request access to Your Device's <strong>Camera</strong>, solely so You can take a photo of a part or Your vehicle directly within the app. Romy's Garage does not request access to Your full Photo Library — the built-in iOS photo picker lets You choose existing photos without granting the app broader library access.</p>
 <p><strong>Apple's own diagnostics (optional, controlled by You).</strong> If You have enabled "Share With App Developers" under Your Device's Privacy &amp; Security settings, Apple may share anonymized crash and performance data with Us through App Store Connect. This is entirely controlled by You in Your Device settings and governed by Apple's own privacy policy, not by the Application itself.</p>
 <h3>Use of Your Personal Data</h3>
 <p>The Company may use the limited Personal Data described above to:</p>
 <ul>
 <li>Operate and maintain the Service, including recognizing Your Pro Subscription.</li>
+<li>Provide the car sharing part: show members their shared car, trips, costs, reservations and parking spot, calculate settlements, and send the notifications You allowed.</li>
 <li>Process Your Subscription purchase, renewal, and cancellation (performed by Apple and RevenueCat on Our behalf).</li>
 <li>Respond to Your support requests and correspondence.</li>
 <li>Comply with legal obligations, resolve disputes, and enforce Our agreements.</li>
@@ -91,13 +99,15 @@
 <p>We share Personal Data only in the following situations:</p>
 <ul>
 <li><strong>With RevenueCat</strong> (Service Provider): to recognize and manage Your Pro Subscription.</li>
-<li><strong>With Apple</strong> (Sign in with Apple, App Store payment processing): as necessary to authenticate You and process Your purchase.</li>
+<li><strong>With Apple</strong> (Sign in with Apple, App Store payment processing, push notifications): as necessary to authenticate You, process Your purchase and deliver notifications.</li>
+<li><strong>With Supabase</strong> (Service Provider, car sharing only): hosting of Our car sharing database, file storage and server functions in the EU (Frankfurt, Germany).</li>
+<li><strong>With the other members of a shared car:</strong> Your display name and the Car Sharing Data of that car are visible to everyone who is a member of it. Members join only with an invite code from a member.</li>
 <li><strong>For legal reasons:</strong> if required to do so by law or in response to a valid request by a public authority.</li>
 <li><strong>For business transfers:</strong> if the Company is involved in a merger, acquisition, or asset sale, the very limited Personal Data described in this Policy may be transferred as part of that transaction; We will provide notice before it becomes subject to a different Privacy Policy.</li>
 </ul>
 <p>We do not share Personal Data with advertisers, data brokers, or analytics partners, because We do not work with any.</p>
 <h2>Project Data Stays on Your Device</h2>
-<p>Your vehicle project information — including project names, categories, parts, tasks, milestones, budget entries, journal entries, before/after photo pairs, and any photos You take or import — is stored <strong>exclusively on Your Device</strong>. Romy's Garage has no backend server, and this Project Data is never transmitted to, or accessible by, the Company or any third party, including RevenueCat or Apple.</p>
+<p>Your vehicle project information — including project names, categories, parts, tasks, milestones, budget entries, journal entries, before/after photo pairs, and any photos You take or import — is stored <strong>exclusively on Your Device</strong>. This Project Data is never transmitted to, or accessible by, the Company or any third party, including RevenueCat, Apple or Supabase. If You move a car between the restoration and the car sharing part, only the details You see in the form (name, make, model, year, odometer and the cover photo) are copied into the shared car.</p>
 <p>If You use the Application's optional "Export data" feature, You create a backup file that You choose where to save or share (for example, via Files, a cloud-storage app of Your choice, AirDrop, or email) using Your Device's standard share sheet. That choice, and any resulting storage of the file, is entirely Yours; the Company never receives or has access to Your exported backup files.</p>
 <p>Because Project Data never reaches Us, We cannot access, restore, or delete it on Your behalf — You are always in full and immediate control of it (see "Delete Your Personal Data" below).</p>
 <h2>Retention of Your Personal Data</h2>
@@ -106,13 +116,16 @@
 <li><strong>Subscription/purchase records held by RevenueCat and Apple:</strong> retained for as long as needed to provide the subscription service and to meet RevenueCat's and Apple's own legal, accounting, and tax obligations (typically several years for transaction records, per their respective privacy policies).</li>
 <li><strong>Support correspondence:</strong> retained for up to 24 months from the date Your inquiry is resolved, to handle follow-up questions and, where necessary, defend against legal claims.</li>
 <li><strong>Project Data:</strong> retained only on Your Device, for as long as You keep it there — the Company has no visibility into, or control over, this retention.</li>
+<li><strong>Car Sharing Data:</strong> retained while the shared car exists. Parking locations are deleted after 60 days. When a car is deleted by its owner, all of its data is deleted.</li>
+<li><strong>Car Sharing Account:</strong> retained until You delete it. On deletion Your sign-in data, email, push tokens and subscription status are erased and Your display name is removed. Trips and costs You entered in cars You did not own remain, without Your name, so the other members can still settle what they owe each other. Cars You own are handed over to the longest-standing other member, or deleted if there is none.</li>
 </ul>
 <h2>Transfer of Your Personal Data</h2>
-<p>The very limited Personal Data described in this Policy (Your sign-in identifier and, if applicable, support correspondence) may be processed by RevenueCat, Inc., which is based in the United States, and by Apple, which operates data centers internationally. Where Personal Data is transferred outside the European Economic Area (EEA) or the United Kingdom (UK) to a country not recognized as providing an adequate level of protection, We and Our Service Providers rely on appropriate safeguards, such as the European Commission's Standard Contractual Clauses (SCCs) or the UK International Data Transfer Agreement, together with supplementary technical measures such as encryption.</p>
+<p>Car Sharing Data is stored on Supabase infrastructure in the EU (Frankfurt, Germany). Your sign-in identifier and subscription status may be processed by RevenueCat, Inc., which is based in the United States, by Supabase, Inc. (United States) as Our hosting provider, and by Apple, which operates data centers internationally. Where Personal Data is transferred outside the European Economic Area (EEA) or the United Kingdom (UK) to a country not recognized as providing an adequate level of protection, We and Our Service Providers rely on appropriate safeguards, such as the European Commission's Standard Contractual Clauses (SCCs) or the UK International Data Transfer Agreement, together with supplementary technical measures such as encryption.</p>
 <h2>Delete Your Personal Data</h2>
 <ul>
 <li><strong>Project Data:</strong> delete individual projects, photos, tasks, or entries directly within the Application (press-and-hold on the relevant item, then confirm deletion), or delete the Application from Your Device to instantly and permanently erase all locally stored Project Data.</li>
 <li><strong>Sign-in identifier and name:</strong> sign out within the Application (Settings → Account → Sign Out) to remove them from Your Device's Keychain.</li>
+<li><strong>Car Sharing Account and Car Sharing Data:</strong> delete Your Car Sharing Account in the Application (Settings → Car sharing → Delete car sharing account; "Delete account" also deletes it). Owners can delete a shared car with all of its data in the car's settings; members can delete their own entries until they are settled, or leave a car.</li>
 <li><strong>Data held by RevenueCat:</strong> contact Us, or RevenueCat directly, to request deletion of Your subscriber identifier and associated purchase history, subject to any legal retention obligations RevenueCat or Apple may have for financial and tax records.</li>
 </ul>
 <h2>Disclosure of Your Personal Data</h2>
@@ -121,19 +134,21 @@
 <h3>Law Enforcement and Other Legal Requirements</h3>
 <p>The Company may disclose Personal Data if required to do so by law, or in the good-faith belief that such action is necessary to comply with a legal obligation, protect the rights or safety of the Company or others, or investigate wrongdoing in connection with the Service.</p>
 <h2>Security of Your Personal Data</h2>
-<p>Because Your Project Data stays on Your Device rather than on a Company-operated server, it cannot be exposed by a breach of Our systems — We simply do not have it. The security of Project Data on Your Device depends on Your own Device security (passcode, Face ID/Touch ID, and keeping Your operating system up to date), which is Your responsibility. For the limited Personal Data We do process via RevenueCat and Apple, We rely on those providers' security measures; no method of electronic transmission or storage is ever 100% secure, and We cannot guarantee absolute security.</p>
+<p>Car Sharing Data is transmitted only over encrypted connections (TLS) and stored in a database where every table is protected by row-level security: a member can only read the cars they belong to, and the rules for trips, costs and settlements are enforced on the server. Because Your Project Data stays on Your Device rather than on a Company-operated server, it cannot be exposed by a breach of Our systems — We simply do not have it. The security of Project Data on Your Device depends on Your own Device security (passcode, Face ID/Touch ID, and keeping Your operating system up to date), which is Your responsibility. For the limited Personal Data We do process via RevenueCat and Apple, We rely on those providers' security measures; no method of electronic transmission or storage is ever 100% secure, and We cannot guarantee absolute security.</p>
 <h2>Third-Party Service Providers</h2>
 <ul>
 <li><strong>RevenueCat</strong> — manages Your Pro Subscription and entitlement status. Privacy Policy: https://www.revenuecat.com/privacy</li>
-<li><strong>Apple Inc.</strong> — provides Sign in with Apple and processes all App Store payments. Privacy Policy: https://www.apple.com/legal/privacy/en-ww/</li>
+<li><strong>Apple Inc.</strong> — provides Sign in with Apple, push notifications and processes all App Store payments. Privacy Policy: https://www.apple.com/legal/privacy/en-ww/</li>
+<li><strong>Supabase, Inc.</strong> — hosts the car sharing database, files and server functions in the EU (Frankfurt). Privacy Policy: https://supabase.com/privacy</li>
 </ul>
 <p>We do not use any analytics, advertising, or crash-reporting SDKs beyond what is described above.</p>
 <h2>GDPR Privacy</h2>
 <h3>Legal Basis for Processing Personal Data under the GDPR</h3>
 <p>We process the limited Personal Data described in this Policy under the following legal bases:</p>
 <ul>
-<li><strong>Performance of a contract:</strong> to provide the Service and Your Pro Subscription.</li>
-<li><strong>Legitimate interests:</strong> to respond to Your support requests and keep the Service secure.</li>
+<li><strong>Performance of a contract:</strong> to provide the Service, Your Pro Subscription and the car sharing part, including sharing Car Sharing Data with the members of a car.</li>
+<li><strong>Consent:</strong> for the optional parking location and for notifications, which You can withdraw at any time in the Application or in iOS Settings.</li>
+<li><strong>Legitimate interests:</strong> to respond to Your support requests, keep the Service secure, and keep the anonymised trip and cost history of a shared car after a member deletes their account, so the remaining members can settle what they owe each other.</li>
 <li><strong>Legal obligations:</strong> where processing is necessary to comply with the law (for example, financial record-keeping by RevenueCat/Apple).</li>
 </ul>
 <h3>Your Rights under the GDPR</h3>
@@ -162,7 +177,7 @@
 <tbody>
 <tr>
 <td>A. Identifiers</td>
-<td>Sign-in identifier; name and email address (if You choose to share them)</td>
+<td>Sign-in identifier; name and email address (if You choose to share them); car sharing display name</td>
 <td>Yes</td>
 </tr>
 <tr>
@@ -192,8 +207,8 @@
 </tr>
 <tr>
 <td>G. Geolocation data</td>
-<td>—</td>
-<td>No</td>
+<td>Parking location at the end of a car sharing trip, only if You choose to save it</td>
+<td>Yes (optional, deleted after 60 days)</td>
 </tr>
 <tr>
 <td>H. Sensory data</td>
@@ -218,7 +233,7 @@
 <tr>
 <td>L. Sensitive personal information</td>
 <td>Government IDs, financial accounts, precise geolocation, health data, etc.</td>
-<td>No</td>
+<td>Only the optional parking location (precise geolocation) described above</td>
 </tr>
 </tbody>
 </table>
@@ -235,7 +250,7 @@
 <p>Romy's Garage does not run its own age-verification check. Eligibility to use the Service is governed by Apple's own account requirements: the Application can only be used with an Apple Account that meets Apple's minimum age for that country, or, for younger children, an Apple Account organized by a parent or guardian through Family Sharing under Apple's own parental controls.</p>
 <p>Under data protection laws such as COPPA (US) and the GDPR, We do not knowingly collect Personal Data from children under 13 (or the relevant minimum age under Your local law) outside of what is described above, and We do not knowingly sell or share any child's Personal Data. If You are a parent or guardian and believe Your child has provided Us with Personal Data without appropriate consent, please contact Us so We can address it.</p>
 <h2>Links to Other Websites</h2>
-<p>This Privacy Policy links to RevenueCat's and Apple's own privacy policies for Your reference. We have no control over, and assume no responsibility for, the content or privacy practices of those third-party sites.</p>
+<p>This Privacy Policy links to RevenueCat's, Apple's and Supabase's own privacy policies for Your reference. We have no control over, and assume no responsibility for, the content or privacy practices of those third-party sites.</p>
 <h2>Changes to This Privacy Policy</h2>
 <p>We may update this Privacy Policy from time to time. We will notify You of material changes by updating the "Last updated" date above and, where appropriate, through a notice within the Application prior to the change taking effect. You are advised to review this Privacy Policy periodically.</p>
 <h2>Contact Us</h2>

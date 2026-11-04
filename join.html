@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Car sharing invite — Romy's Garage</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #5b5b5b; --border: #e2e2e2; --accent: #0e8f6e; --accent-fg: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14161a; --fg: #eaeaea; --muted: #a3a3a3; --border: #2c2f36; --accent: #3ecf9e; --accent-fg: #0b1a14; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  nav.top {
+    max-width: 560px; margin: 0 auto; padding: 20px 16px; font-size: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  nav.top a { color: var(--muted); text-decoration: none; }
+  #lang-select {
+    padding: 6px 10px; font-size: 13px; border-radius: 6px; color: var(--muted);
+    background: color-mix(in srgb, var(--fg) 4%, transparent); border: 1px solid var(--border);
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 24px 16px 80px; text-align: center; }
+  .icon {
+    width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center;
+    background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); font-size: 40px;
+  }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 12px; }
+  .lead { color: var(--muted); margin: 0 0 28px; }
+  .code-box { border: 1px solid var(--border); border-radius: 20px; padding: 20px 16px; margin-bottom: 20px; }
+  .code-label { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .code {
+    font: 700 2.2rem/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .06em;
+    margin: 8px 0 12px; overflow-wrap: anywhere; user-select: all;
+  }
+  .btn {
+    display: block; width: 100%; padding: 15px 18px; border-radius: 999px; font: inherit; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer; margin-top: 12px;
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-fg); }
+  .btn.secondary { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+  .btn.small { display: inline-block; width: auto; padding: 8px 16px; font-size: 15px; margin: 0; }
+  .steps { color: var(--muted); font-size: .95rem; margin-top: 28px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<nav class="top">
+  <a href="./">Romy's Garage</a>
+  <select id="lang-select" aria-label="Language"></select>
+</nav>
+<main class="wrap">
+  <div class="icon" aria-hidden="true">🚗</div>
+  <h1 id="title"></h1>
+  <p class="lead" id="lead"></p>
+  <section class="code-box" id="code-box">
+    <div class="code-label" id="code-label"></div>
+    <div class="code" id="code"></div>
+    <button class="btn secondary small" id="copy" type="button"></button>
+  </section>
+  <p class="lead hidden" id="no-code"></p>
+  <a class="btn primary" id="open" href="romysgarage://join"></a>
+  <a class="btn secondary" id="install" href="https://apps.apple.com/app/id6788253177"></a>
+  <p class="steps" id="steps"></p>
+</main>
+<script>
+// Kurztexte der Einladungsseite in allen Sprachen der App (siehe Localizable.xcstrings).
+var JOIN_I18N = {
+  en: ["You're invited to share a car", "Someone wants to share their car with you in Romy's Garage: trips, costs and the calendar in one place.", "Your invite code", "Open in Romy's Garage", "Get Romy's Garage on the App Store", "No app yet? Install it, open “Car sharing” on the home screen and enter the code.", "Copy code", "Copied", "This link has no invite code. Ask for a new invite."],
+  de: ["Du bist eingeladen, ein Auto zu teilen", "Jemand möchte sein Auto in Romy's Garage mit dir teilen: Fahrten, Kosten und Kalender an einem Ort.", "Dein Einladungscode", "In Romy's Garage öffnen", "Romy's Garage im App Store laden", "Noch keine App? Installieren, auf der Startseite „Carsharing“ öffnen und den Code eingeben.", "Code kopieren", "Kopiert", "Dieser Link enthält keinen Code. Bitte um eine neue Einladung."],
+  es: ["Te han invitado a compartir un coche", "Alguien quiere compartir su coche contigo en Romy's Garage: viajes, gastos y calendario en un solo lugar.", "Tu código de invitación", "Abrir en Romy's Garage", "Descargar Romy's Garage en el App Store", "¿Aún no tienes la app? Instálala, abre «Coche compartido» en la pantalla de inicio e introduce el código.", "Copiar código", "Copiado", "Este enlace no tiene código. Pide una nueva invitación."],
+  fr: ["Tu es invité·e à partager une voiture", "Quelqu'un veut partager sa voiture avec toi dans Romy's Garage : trajets, frais et calendrier au même endroit.", "Ton code d'invitation", "Ouvrir dans Romy's Garage", "Télécharger Romy's Garage sur l'App Store", "Pas encore l'app ? Installe-la, ouvre « Autopartage » sur l'écran d'accueil et saisis le code.", "Copier le code", "Copié", "Ce lien ne contient pas de code. Demande une nouvelle invitation."],
+  it: ["Sei invitato a condividere un'auto", "Qualcuno vuole condividere la sua auto con te in Romy's Garage: viaggi, costi e calendario in un unico posto.", "Il tuo codice d'invito", "Apri in Romy's Garage", "Scarica Romy's Garage dall'App Store", "Non hai ancora l'app? Installala, apri «Car sharing» nella schermata iniziale e inserisci il codice.", "Copia codice", "Copiato", "Questo link non contiene un codice. Chiedi un nuovo invito."],
+  "pt-BR": ["Você foi convidado a compartilhar um carro", "Alguém quer compartilhar o carro com você no Romy's Garage: viagens, custos e agenda em um só lugar.", "Seu código de convite", "Abrir no Romy's Garage", "Baixar o Romy's Garage na App Store", "Ainda não tem o app? Instale, abra “Carro compartilhado” na tela inicial e digite o código.", "Copiar código", "Copiado", "Este link não tem código. Peça um novo convite."],
+  nl: ["Je bent uitgenodigd om een auto te delen", "Iemand wil zijn auto met je delen in Romy's Garage: ritten, kosten en agenda op één plek.", "Je uitnodigingscode", "Openen in Romy's Garage", "Romy's Garage downloaden in de App Store", "Nog geen app? Installeer hem, open ‘Autodelen’ op het beginscherm en voer de code in.", "Code kopiëren", "Gekopieerd", "Deze link bevat geen code. Vraag om een nieuwe uitnodiging."],
+  sv: ["Du är inbjuden att dela en bil", "Någon vill dela sin bil med dig i Romy's Garage: resor, kostnader och kalender på ett ställe.", "Din inbjudningskod", "Öppna i Romy's Garage", "Hämta Romy's Garage på App Store", "Har du inte appen än? Installera den, öppna ”Bildelning” på startskärmen och ange koden.", "Kopiera kod", "Kopierad", "Länken saknar kod. Be om en ny inbjudan."],
+  da: ["Du er inviteret til at dele en bil", "Nogen vil dele sin bil med dig i Romy's Garage: ture, udgifter og kalender samlet ét sted.", "Din invitationskode", "Åbn i Romy's Garage", "Hent Romy's Garage i App Store", "Har du ikke appen endnu? Installer den, åbn »Bildeling« på startskærmen og indtast koden.", "Kopiér kode", "Kopieret", "Linket indeholder ingen kode. Bed om en ny invitation."],
+  nb: ["Du er invitert til å dele en bil", "Noen vil dele bilen sin med deg i Romy's Garage: turer, kostnader og kalender på ett sted.", "Invitasjonskoden din", "Åpne i Romy's Garage", "Last ned Romy's Garage i App Store", "Har du ikke appen ennå? Installer den, åpne «Bildeling» på startsiden og skriv inn koden.", "Kopier kode", "Kopiert", "Lenken mangler kode. Be om en ny invitasjon."],
+  fi: ["Sinut on kutsuttu jakamaan auto", "Joku haluaa jakaa autonsa kanssasi Romy's Garagessa: matkat, kulut ja kalenteri samassa paikassa.", "Kutsukoodisi", "Avaa Romy's Garagessa", "Lataa Romy's Garage App Storesta", "Eikö sinulla ole vielä sovellusta? Asenna se, avaa aloitusnäytöltä ”Yhteiskäyttöauto” ja syötä koodi.", "Kopioi koodi", "Kopioitu", "Linkissä ei ole koodia. Pyydä uusi kutsu."],
+  pl: ["Zaproszono cię do wspólnego auta", "Ktoś chce dzielić z tobą swoje auto w Romy's Garage: przejazdy, koszty i kalendarz w jednym miejscu.", "Twój kod zaproszenia", "Otwórz w Romy's Garage", "Pobierz Romy's Garage z App Store", "Nie masz jeszcze aplikacji? Zainstaluj ją, otwórz „Wspólne auto” na ekranie startowym i wpisz kod.", "Kopiuj kod", "Skopiowano", "Ten link nie zawiera kodu. Poproś o nowe zaproszenie."],
+  cs: ["Jsi pozván ke sdílení auta", "Někdo s tebou chce sdílet auto v Romy's Garage: jízdy, náklady a kalendář na jednom místě.", "Tvůj kód pozvánky", "Otevřít v Romy's Garage", "Stáhnout Romy's Garage z App Store", "Ještě nemáš aplikaci? Nainstaluj ji, na úvodní obrazovce otevři „Sdílené auto“ a zadej kód.", "Kopírovat kód", "Zkopírováno", "Tento odkaz neobsahuje kód. Požádej o novou pozvánku."],
+  ro: ["Ești invitat să împarți o mașină", "Cineva vrea să-și împartă mașina cu tine în Romy's Garage: călătorii, costuri și calendar într-un singur loc.", "Codul tău de invitație", "Deschide în Romy's Garage", "Descarcă Romy's Garage din App Store", "Nu ai încă aplicația? Instaleaz-o, deschide „Mașină partajată” pe ecranul principal și introdu codul.", "Copiază codul", "Copiat", "Acest link nu conține un cod. Cere o invitație nouă."],
+  ru: ["Тебя пригласили пользоваться общим авто", "Кто-то хочет поделиться с тобой машиной в Romy's Garage: поездки, расходы и календарь в одном месте.", "Твой код приглашения", "Открыть в Romy's Garage", "Скачать Romy's Garage в App Store", "Ещё нет приложения? Установи его, открой «Общее авто» на главном экране и введи код.", "Скопировать код", "Скопировано", "В этой ссылке нет кода. Попроси новое приглашение."],
+  uk: ["Тебе запросили користуватися спільним авто", "Хтось хоче поділитися з тобою авто в Romy's Garage: поїздки, витрати й календар в одному місці.", "Твій код запрошення", "Відкрити в Romy's Garage", "Завантажити Romy's Garage з App Store", "Ще немає застосунку? Встанови його, відкрий «Спільне авто» на головному екрані та введи код.", "Скопіювати код", "Скопійовано", "У цьому посиланні немає коду. Попроси нове запрошення."],
+  el: ["Σε προσκάλεσαν να μοιραστείς ένα αυτοκίνητο", "Κάποιος θέλει να μοιραστεί το αυτοκίνητό του μαζί σου στο Romy's Garage: διαδρομές, έξοδα και ημερολόγιο σε ένα σημείο.", "Ο κωδικός πρόσκλησής σου", "Άνοιγμα στο Romy's Garage", "Λήψη του Romy's Garage από το App Store", "Δεν έχεις ακόμη την εφαρμογή; Εγκατάστησέ την, άνοιξε «Κοινόχρηστο αυτοκίνητο» στην αρχική οθόνη και πληκτρολόγησε τον κωδικό.", "Αντιγραφή κωδικού", "Αντιγράφηκε", "Αυτός ο σύνδεσμος δεν έχει κωδικό. Ζήτησε νέα πρόσκληση."],
+  tr: ["Bir aracı paylaşmaya davet edildin", "Biri Romy's Garage'da aracını seninle paylaşmak istiyor: yolculuklar, masraflar ve takvim tek yerde.", "Davet kodun", "Romy's Garage'da aç", "Romy's Garage'ı App Store'dan indir", "Uygulama henüz yok mu? Yükle, ana ekranda “Ortak araç”ı aç ve kodu gir.", "Kodu kopyala", "Kopyalandı", "Bu bağlantıda kod yok. Yeni bir davet iste."],
+  ar: ["دعاك أحدهم لمشاركة سيارة", "يريد شخص مشاركة سيارته معك في Romy's Garage: الرحلات والتكاليف والتقويم في مكان واحد.", "رمز الدعوة الخاص بك", "فتح في Romy's Garage", "تنزيل Romy's Garage من App Store", "ليس لديك التطبيق بعد؟ ثبّته وافتح «مشاركة السيارة» في الشاشة الرئيسية وأدخل الرمز.", "نسخ الرمز", "تم النسخ", "لا يحتوي هذا الرابط على رمز. اطلب دعوة جديدة."],
+  hi: ["आपको एक कार शेयर करने का न्योता मिला है", "कोई Romy's Garage में अपनी कार आपके साथ शेयर करना चाहता है: यात्राएँ, खर्च और कैलेंडर एक ही जगह।", "आपका आमंत्रण कोड", "Romy's Garage में खोलें", "App Store से Romy's Garage पाएँ", "अभी ऐप नहीं है? इसे इंस्टॉल करें, होम स्क्रीन पर “कार शेयरिंग” खोलें और कोड डालें।", "कोड कॉपी करें", "कॉपी हो गया", "इस लिंक में कोई कोड नहीं है। नया आमंत्रण माँगें।"],
+  id: ["Kamu diundang berbagi mobil", "Seseorang ingin berbagi mobilnya denganmu di Romy's Garage: perjalanan, biaya, dan kalender dalam satu tempat.", "Kode undanganmu", "Buka di Romy's Garage", "Dapatkan Romy's Garage di App Store", "Belum punya aplikasinya? Instal, buka “Berbagi mobil” di layar utama, lalu masukkan kodenya.", "Salin kode", "Disalin", "Tautan ini tidak berisi kode. Minta undangan baru."],
+  th: ["คุณได้รับเชิญให้แชร์รถ", "มีคนอยากแชร์รถกับคุณใน Romy's Garage: การเดินทาง ค่าใช้จ่าย และปฏิทินในที่เดียว", "รหัสเชิญของคุณ", "เปิดใน Romy's Garage", "ดาวน์โหลด Romy's Garage จาก App Store", "ยังไม่มีแอป? ติดตั้งแอป เปิด “แชร์รถ” ที่หน้าแรก แล้วใส่รหัส", "คัดลอกรหัส", "คัดลอกแล้ว", "ลิงก์นี้ไม่มีรหัส ขอคำเชิญใหม่"],
+  vi: ["Bạn được mời dùng chung xe", "Có người muốn dùng chung xe với bạn trong Romy's Garage: chuyến đi, chi phí và lịch ở cùng một nơi.", "Mã mời của bạn", "Mở trong Romy's Garage", "Tải Romy's Garage trên App Store", "Chưa có ứng dụng? Cài đặt, mở “Dùng chung xe” trên màn hình chính và nhập mã.", "Sao chép mã", "Đã sao chép", "Liên kết này không có mã. Hãy xin lời mời mới."],
+  ja: ["カーシェアに招待されました", "Romy's Garageで車をシェアしたい人がいます。走行、費用、カレンダーをひとつの場所で。", "あなたの招待コード", "Romy's Garageで開く", "App StoreでRomy's Garageを入手", "まだアプリがない場合は、インストールしてホーム画面の「カーシェア」を開き、コードを入力してください。", "コードをコピー", "コピーしました", "このリンクにはコードがありません。新しい招待をもらってください。"],
+  ko: ["카셰어링에 초대되었습니다", "누군가 Romy's Garage에서 차량을 함께 쓰고 싶어 합니다. 주행, 비용, 캘린더를 한곳에서.", "초대 코드", "Romy's Garage에서 열기", "App Store에서 Romy's Garage 받기", "아직 앱이 없나요? 설치한 뒤 홈 화면에서 ‘카셰어링’을 열고 코드를 입력하세요.", "코드 복사", "복사됨", "이 링크에는 코드가 없습니다. 새 초대를 요청하세요."],
+  "zh-Hans": ["有人邀请你共享汽车", "有人想在 Romy's Garage 中与你共享汽车：行程、费用和日历集中在一处。", "你的邀请码", "在 Romy's Garage 中打开", "从 App Store 获取 Romy's Garage", "还没有安装应用？安装后在主屏幕打开「共享汽车」并输入邀请码。", "复制邀请码", "已复制", "此链接中没有邀请码。请索取新的邀请。"],
+  "zh-Hant": ["有人邀請你共享汽車", "有人想在 Romy's Garage 中與你共享汽車：行程、費用和行事曆集中在一處。", "你的邀請碼", "在 Romy's Garage 中開啟", "從 App Store 取得 Romy's Garage", "還沒有安裝 App？安裝後在主畫面開啟「共享汽車」並輸入邀請碼。", "複製邀請碼", "已複製", "此連結中沒有邀請碼。請索取新的邀請。"]
+};
+var NAMES = { en: "English", de: "Deutsch", es: "Español", fr: "Français", it: "Italiano", "pt-BR": "Português (Brasil)", nl: "Nederlands", sv: "Svenska", da: "Dansk", nb: "Norsk bokmål", fi: "Suomi", pl: "Polski", cs: "Čeština", ro: "Română", ru: "Русский", uk: "Українська", el: "Ελληνικά", tr: "Türkçe", ar: "العربية", hi: "हिन्दी", id: "Bahasa Indonesia", th: "ไทย", vi: "Tiếng Việt", ja: "日本語", ko: "한국어", "zh-Hans": "简体中文", "zh-Hant": "繁體中文" };
+
+(function () {
+  var params = new URLSearchParams(location.search);
+  var raw = (params.get("code") || params.get("c") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8);
+  var code = /^[A-HJ-NP-Z2-9]{8}$/.test(raw) ? raw : "";
+
+  function pick() {
+    var wanted = [params.get("lang")].concat(navigator.languages || [navigator.language]).filter(Boolean);
+    for (var i = 0; i < wanted.length; i++) {
+      var w = wanted[i];
+      if (JOIN_I18N[w]) return w;
+      var lower = w.toLowerCase();
+      if (lower.indexOf("zh") === 0) return /hant|tw|hk|mo/.test(lower) ? "zh-Hant" : "zh-Hans";
+      if (lower.indexOf("pt") === 0) return "pt-BR";
+      if (lower.indexOf("no") === 0 || lower.indexOf("nn") === 0) return "nb";
+      var base = lower.split("-")[0];
+      if (JOIN_I18N[base]) return base;
+    }
+    return "en";
+  }
+
+  function render(lang) {
+    var t = JOIN_I18N[lang];
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.getElementById("title").textContent = t[0];
+    document.getElementById("lead").textContent = t[1];
+    document.getElementById("code-label").textContent = t[2];
+    document.getElementById("open").textContent = t[3];
+    document.getElementById("install").textContent = t[4];
+    document.getElementById("steps").textContent = t[5];
+    document.getElementById("copy").textContent = t[6];
+    document.getElementById("copy").dataset.done = t[7];
+    document.getElementById("no-code").textContent = t[8];
+  }
+
+  var select = document.getElementById("lang-select");
+  Object.keys(JOIN_I18N).forEach(function (key) {
+    var option = document.createElement("option");
+    option.value = key;
+    option.textContent = NAMES[key] || key;
+    select.appendChild(option);
+  });
+  var lang = pick();
+  select.value = lang;
+  select.addEventListener("change", function () { render(select.value); });
+  render(lang);
+
+  if (code) {
+    document.getElementById("code").textContent = code.slice(0, 4) + "-" + code.slice(4);
+    document.getElementById("open").href = "romysgarage://join?code=" + code;
+  } else {
+    document.getElementById("code-box").classList.add("hidden");
+    document.getElementById("open").classList.add("hidden");
+    document.getElementById("no-code").classList.remove("hidden");
+  }
+
+  document.getElementById("copy").addEventListener("click", function () {
+    var button = this;
+    var text = code.slice(0, 4) + "-" + code.slice(4);
+    function done() { button.textContent = button.dataset.done; }
+    if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done, done); } else { done(); }
+  });
+})();
+</script>
+</body>
+</html>
